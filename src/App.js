@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function ListMapper({ list }) {
+  return <div style={{display: 'grid'}}>
+        {list.map((item, index) => {
+        return (
+        <div style={{display: 'inline-flex'}}> 
+          <div id={index} key={index} index={index}> {`${item.count} ${item.value}`} </div>      
+            <button></button>
+        </div>
+        )
+      })}
+     </div>
+  
 }
 
-export default App;
+function App() {
+  const [list, setList] = useState([
+    {
+      value: 'apples',
+      count: 0,
+      isPurchased: false
+    },
+    {
+      value: 'bananas',
+      count: 5,
+      isPurchased: false
+    },
+    {
+      value: 'raisins',
+      count: 2,
+      isPurchased: false
+    }
+  ])
+
+  const addToList = value => {
+    const itemList = [...setList, { value } ];
+    setList(itemList)
+  }
+
+      return (
+        <React.Fragment>
+          <ListMapper list={list} />
+        </React.Fragment>
+      )
+}
+
+export default App
